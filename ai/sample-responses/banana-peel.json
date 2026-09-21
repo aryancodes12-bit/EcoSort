@@ -1,0 +1,10 @@
+{
+  "item": "Banana Peel Scrap",
+  "category": "Organic/Wet",
+  "bin": "Wet / Organic Compost Bin (Green)",
+  "confidence": 0.98,
+  "disposal_action": "Place directly into the green wet-waste bin or campus compost bin. Keep away from plastic packaging.",
+  "sustainability_tip": "Organic matter in landfills releases potent methane gas. Aerobic composting transforms it into nutrient-rich soil humus (SDG 12.5).",
+  "reason": "Fibrous organic biomass exhibiting natural epidermal oxidation and high moisture content suitable for biological decomposition.",
+  "uncertainty": ""
+}

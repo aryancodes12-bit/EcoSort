@@ -1,0 +1,10 @@
+{
+  "item": "Contaminated Mixed Food Packaging",
+  "category": "Unknown/Uncertain",
+  "bin": "Segregation Required Prior to Disposal",
+  "confidence": 0.62,
+  "disposal_action": "DO NOT throw as a single piece. Scrape food residue into the green organic bin, wash the plastic tray clean for the blue bin, or dispose soiled film into general waste.",
+  "sustainability_tip": "Co-mingling organic food waste with recyclable polymers ruins entire batches of recyclables at sorting facilities.",
+  "reason": "Image reveals multiple composite materials: organic food leftovers adhering to polymer packaging, causing cross-contamination.",
+  "uncertainty": "⚠️ Mixed waste detected: multiple conflicting waste streams are present. Separating organic fractions from recyclable polymer fractions is necessary before binning."
+}

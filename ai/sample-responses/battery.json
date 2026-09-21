@@ -1,0 +1,10 @@
+{
+  "item": "Alkaline Household Battery",
+  "category": "Hazardous/Special",
+  "bin": "E-Waste / Hazardous Deposit Box (Red)",
+  "confidence": 0.93,
+  "disposal_action": "NEVER discard in general domestic or wet waste. Place tape across terminal contacts and drop off at designated campus e-waste collection kiosk.",
+  "sustainability_tip": "Batteries contain heavy metals (zinc, manganese) that cause toxic chemical leaching into groundwater tables if sent to standard landfills (SDG 12.4).",
+  "reason": "Cylindrical metal galvanic cell casing posing hazardous chemical leaching risks upon incineration or degradation.",
+  "uncertainty": ""
+}

@@ -1,0 +1,10 @@
+{
+  "item": "Corrugated Shipping Box",
+  "category": "Recyclable/Dry",
+  "bin": "Dry Waste / Paper Recycling (Blue)",
+  "confidence": 0.95,
+  "disposal_action": "Remove excessive packing tape, flatten carton completely to maximize recycling bin capacity, and ensure it remains dry.",
+  "sustainability_tip": "Recycled corrugated cardboard requires 75% less energy and 50% less water than producing virgin cardboard pulp from felled timber.",
+  "reason": "Uncontaminated kraft paper fiber fluting with dry surface structure ready for pulp repulping.",
+  "uncertainty": ""
+}

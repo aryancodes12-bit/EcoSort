@@ -1,0 +1,396 @@
+/* =====================================================================
+   EcoSort AI — iOS-Style Glassmorphism Design System
+   Source of truth for all design tokens. See design/theme.md.
+   ===================================================================== */
+
+/* Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Outfit:wght@700;800;900&display=swap');
+
+/* ── Design Tokens ──────────────────────────────────────────────────── */
+:root {
+  /* Brand palette — desaturated surfaces so accents pop through glass */
+  --color-forest:         #0d2818;
+  --color-emerald:        #047857;
+  --color-emerald-light:  #10b981;
+  --color-mint:           #ecfdf5;
+  --color-mint-subtle:    #f0fdf4;
+  --color-canvas:         #eef2f7;   /* soft blue-grey base for glass to read against */
+  --color-surface:        #ffffff;
+  --color-charcoal:       #1e293b;
+  --color-muted:          #64748b;
+  --color-border:         rgba(226, 232, 240, 0.7);
+  --color-leaf:           #10b981;
+
+  /* Waste stream indicators */
+  --stream-organic:       #10b981;
+  --stream-recyclable:    #2563eb;
+  --stream-general:       #64748b;
+  --stream-hazardous:     #dc2626;
+  --stream-uncertain:     #d97706;
+
+  /* ── Glass surface tiers ──────────────────────────────────────────── */
+  /* sm — closest to content, least blur (input fields, inline tags) */
+  --glass-sm-bg:          rgba(255, 255, 255, 0.60);
+  --glass-sm-blur:        blur(10px) saturate(160%);
+  --glass-sm-border:      1px solid rgba(255, 255, 255, 0.45);
+  --glass-sm-shadow:      0 2px 12px rgba(0, 0, 0, 0.05);
+
+  /* md — mid-level (cards, panels) */
+  --glass-md-bg:          rgba(255, 255, 255, 0.55);
+  --glass-md-blur:        blur(20px) saturate(180%);
+  --glass-md-border:      1px solid rgba(255, 255, 255, 0.35);
+  --glass-md-shadow:      0 8px 32px rgba(0, 0, 0, 0.08);
+
+  /* lg — highest elevation (modals, sheets, navbar) */
+  --glass-lg-bg:          rgba(255, 255, 255, 0.72);
+  --glass-lg-blur:        blur(32px) saturate(200%);
+  --glass-lg-border:      1px solid rgba(255, 255, 255, 0.55);
+  --glass-lg-shadow:      0 16px 48px rgba(0, 0, 0, 0.12);
+
+  /* ── Corner radius — iOS-approximate large radii ─────────────────── */
+  --radius-xs:    6px;
+  --radius-sm:    10px;
+  --radius-md:    16px;
+  --radius-lg:    24px;
+  --radius-xl:    32px;
+  --radius-full:  9999px;
+
+  /* ── Shadows ─────────────────────────────────────────────────────── */
+  --shadow-sm:    0 2px 8px rgba(13, 40, 24, 0.06);
+  --shadow-md:    0 8px 32px rgba(13, 40, 24, 0.10);
+  --shadow-lg:    0 16px 48px rgba(13, 40, 24, 0.14);
+  --shadow-glow:  0 0 28px rgba(16, 185, 129, 0.28);
+
+  /* ── Typography ──────────────────────────────────────────────────── */
+  --font-heading: 'Outfit', -apple-system, BlinkMacSystemFont, sans-serif;
+  --font-body:    'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* ── Base Reset ──────────────────────────────────────────────────────── */
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* ── Body — ambient gradient mesh background ─────────────────────────── */
+body {
+  font-family: var(--font-body);
+  color: var(--color-charcoal);
+  background-color: var(--color-canvas);
+  min-height: 100vh;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* Ambient gradient blobs — painted behind everything via pseudo-element */
+body::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 70% 55% at 12%  18%, rgba(16, 185, 129, 0.18) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 88%  72%, rgba(37,  99, 235, 0.12) 0%, transparent 55%),
+    radial-gradient(ellipse 50% 45% at 55%  88%, rgba(4,  120,  87, 0.10) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 60% at 50%  50%, rgba(238,242,250, 1.00) 0%, transparent 100%);
+  animation: blobDrift 80s ease-in-out infinite alternate;
+  z-index: -1;
+  pointer-events: none;
+}
+
+@keyframes blobDrift {
+  0%   { transform: translate(0,    0)    scale(1); }
+  33%  { transform: translate(12px, -8px) scale(1.015); }
+  66%  { transform: translate(-8px, 14px) scale(0.985); }
+  100% { transform: translate(6px,  -4px) scale(1.010); }
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--color-forest);
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+/* ── Glass Utility Classes ───────────────────────────────────────────── */
+
+/* Small glass — inputs, inline chips, secondary surfaces */
+.glass-sm {
+  background: var(--glass-sm-bg);
+  backdrop-filter: var(--glass-sm-blur);
+  -webkit-backdrop-filter: var(--glass-sm-blur);
+  border: var(--glass-sm-border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--glass-sm-shadow);
+}
+
+/* Medium glass — cards, main panels */
+.glass-md {
+  background: var(--glass-md-bg);
+  backdrop-filter: var(--glass-md-blur);
+  -webkit-backdrop-filter: var(--glass-md-blur);
+  border: var(--glass-md-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-md-shadow);
+}
+
+/* Large glass — modals, navbar (highest elevation) */
+.glass-lg {
+  background: var(--glass-lg-bg);
+  backdrop-filter: var(--glass-lg-blur);
+  -webkit-backdrop-filter: var(--glass-lg-blur);
+  border: var(--glass-lg-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-lg-shadow);
+}
+
+/* Legacy alias — maps to glass-md for backward compat */
+.glass-panel {
+  background: var(--glass-md-bg);
+  backdrop-filter: var(--glass-md-blur);
+  -webkit-backdrop-filter: var(--glass-md-blur);
+  border: var(--glass-md-border);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--glass-md-shadow);
+  transition: box-shadow 0.25s ease, transform 0.25s ease;
+}
+
+/* ── Container ───────────────────────────────────────────────────────── */
+.container {
+  max-width: 1160px;
+  margin: 0 auto;
+  padding: 0 1.5rem;
+}
+
+/* ── Badges / Pills ──────────────────────────────────────────────────── */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.3rem 0.85rem;
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.025em;
+  white-space: nowrap;
+}
+
+.badge-sdg {
+  background: rgba(220, 38, 38, 0.10);
+  color: #dc2626;
+  border: 1px solid rgba(220, 38, 38, 0.20);
+}
+
+.badge-ai {
+  background: rgba(16, 185, 129, 0.12);
+  color: var(--color-emerald);
+  border: 1px solid rgba(16, 185, 129, 0.22);
+}
+
+/* Category stream badges */
+.badge-category-organic {
+  background: rgba(16, 185, 129, 0.12);
+  color: #065f46;
+  border: 1px solid rgba(16, 185, 129, 0.25);
+}
+
+.badge-category-recyclable {
+  background: rgba(37, 99, 235, 0.10);
+  color: #1e40af;
+  border: 1px solid rgba(37, 99, 235, 0.22);
+}
+
+.badge-category-general {
+  background: rgba(100, 116, 139, 0.10);
+  color: #475569;
+  border: 1px solid rgba(100, 116, 139, 0.22);
+}
+
+.badge-category-hazardous {
+  background: rgba(220, 38, 38, 0.10);
+  color: #991b1b;
+  border: 1px solid rgba(220, 38, 38, 0.22);
+}
+
+.badge-category-uncertain {
+  background: rgba(217, 119, 6, 0.10);
+  color: #92400e;
+  border: 1px solid rgba(217, 119, 6, 0.22);
+}
+
+/* ── Buttons ─────────────────────────────────────────────────────────── */
+
+/* Primary — solid accent, not glass (iOS keeps CTAs opaque for legibility) */
+.btn-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+  background: linear-gradient(160deg, #0da271 0%, var(--color-emerald) 50%, #035c41 100%);
+  /* inner highlight sheen */
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.22),
+    0 4px 18px rgba(4, 120, 87, 0.35);
+  color: #ffffff;
+  border: none;
+  border-radius: var(--radius-full);
+  padding: 0.8rem 1.65rem;
+  font-size: 0.975rem;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: var(--font-body);
+  letter-spacing: 0.01em;
+  transition: box-shadow 0.2s ease, opacity 0.15s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.btn-primary::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to bottom, rgba(255,255,255,0.08) 0%, transparent 60%);
+  pointer-events: none;
+}
+
+.btn-primary:hover:not(:disabled) {
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.28),
+    0 8px 28px rgba(4, 120, 87, 0.45);
+}
+
+.btn-primary:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
+}
+
+/* Secondary — glass-sm surface */
+.btn-secondary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  background: var(--glass-sm-bg);
+  backdrop-filter: var(--glass-sm-blur);
+  -webkit-backdrop-filter: var(--glass-sm-blur);
+  color: var(--color-forest);
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  border-radius: var(--radius-full);
+  padding: 0.7rem 1.3rem;
+  font-size: 0.925rem;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: var(--font-body);
+  transition: background 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+}
+
+.btn-secondary:hover {
+  background: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 4px 18px rgba(0,0,0,0.09);
+  color: var(--color-emerald);
+}
+
+/* Icon-only circular button (iOS toolbar style) */
+.btn-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--glass-sm-bg);
+  backdrop-filter: var(--glass-sm-blur);
+  -webkit-backdrop-filter: var(--glass-sm-blur);
+  border: var(--glass-sm-border);
+  border-radius: 50%;
+  width: 38px;
+  height: 38px;
+  cursor: pointer;
+  transition: background 0.2s ease;
+  color: var(--color-muted);
+  box-shadow: var(--glass-sm-shadow);
+}
+
+.btn-icon:hover {
+  background: rgba(255,255,255,0.85);
+  color: var(--color-emerald);
+}
+
+/* ── Scanner radar animation ─────────────────────────────────────────── */
+@keyframes scanline {
+  0%   { top: 0%;   opacity: 0.8; }
+  50%  { opacity: 1; }
+  100% { top: 100%; opacity: 0.8; }
+}
+
+.scanning-radar {
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #10b981, transparent);
+  box-shadow: 0 0 12px #10b981, 0 0 4px #10b981;
+  animation: scanline 2s cubic-bezier(0.4, 0, 0.2, 1) infinite alternate;
+  z-index: 10;
+}
+
+/* ── Spin utility ────────────────────────────────────────────────────── */
+@keyframes spin {
+  to { transform: rotate(360deg); }
+}
+.animate-spin {
+  animation: spin 1s linear infinite;
+}
+
+/* ── Modal overlay ───────────────────────────────────────────────────── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(13, 40, 24, 0.45);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1rem;
+}
+
+.modal-content {
+  background: var(--glass-lg-bg);
+  backdrop-filter: var(--glass-lg-blur);
+  -webkit-backdrop-filter: var(--glass-lg-blur);
+  border: var(--glass-lg-border);
+  border-radius: var(--radius-xl);
+  box-shadow: var(--glass-lg-shadow);
+  max-width: 640px;
+  width: 100%;
+  max-height: 90vh;
+  overflow-y: auto;
+}
+
+/* ── Responsive ──────────────────────────────────────────────────────── */
+@media (max-width: 768px) {
+  .hero-grid         { grid-template-columns: 1fr !important; }
+  .presets-grid      { grid-template-columns: repeat(2, 1fr) !important; }
+
+  /* Reduce blur on mobile to spare GPU */
+  .glass-md {
+    --glass-md-blur: blur(14px) saturate(160%);
+  }
+  .glass-lg {
+    --glass-lg-blur: blur(22px) saturate(180%);
+  }
+}
+
+@media (max-width: 480px) {
+  .presets-grid { grid-template-columns: 1fr !important; }
+}
+
+/* ── Reduce motion override ──────────────────────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  body::before { animation: none; }
+  .scanning-radar { animation: none; top: 0; }
+  .animate-spin  { animation: none; }
+}
