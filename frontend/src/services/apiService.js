@@ -112,6 +112,8 @@ export async function analyzeWasteImage({
   try {
     let fetchPromise;
 
+    const API_BASE = import.meta.env.VITE_API_BASE_URL || '';
+
     if (file) {
       const formData = new FormData();
       formData.append('file', file);
@@ -119,12 +121,12 @@ export async function analyzeWasteImage({
         formData.append('liveOnly', 'true');
       }
       // Stage 1 → 2: fetch sent (upload leaving browser) → vision analysis in flight
-      fetchPromise = fetch(`/api/analyze?liveOnly=${liveOnly || isHeldOut}`, {
+      fetchPromise = fetch(`${API_BASE}/api/analyze?liveOnly=${liveOnly || isHeldOut}`, {
         method: 'POST',
         body: formData,
       });
     } else if (processedBase64) {
-      fetchPromise = fetch('/api/analyze-base64', {
+      fetchPromise = fetch(`${API_BASE}/api/analyze-base64`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
